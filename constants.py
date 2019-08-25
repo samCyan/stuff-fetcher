@@ -1,3 +1,5 @@
+DOWNLOADS = 'downloads'
+
 # db list
 downloads_database = 'downloads_database'
 

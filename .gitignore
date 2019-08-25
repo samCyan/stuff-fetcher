@@ -20,3 +20,4 @@ venv
 *.pyc
 build
 data_store
+downloads
