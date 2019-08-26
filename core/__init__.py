@@ -16,7 +16,6 @@ if not os.path.isdir('downloads'):
 
 CWD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 db = sqlite3.connect(constants.downloads_database_loc, check_same_thread = False)
 with app.open_resource('../sql_queries/create_download_table.sql', mode='r') as f:
     db.cursor().executescript(f.read())
