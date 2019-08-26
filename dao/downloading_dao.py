@@ -33,12 +33,11 @@ class Downloading_DAO(DAO_Core):
     def __init__(self):
         super(Downloading_DAO, self).__init__(constants.downloads_database_loc)
         # with app.app_context():
-        db = self.get_db()
-        with app.open_resource('../sql_queries/create_download_table.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        with app.open_resource('../sql_queries/create_download_chunk_table.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+        # db = self.get_db()
+        # with app.open_resource('../sql_queries/create_download_table.sql', mode='r') as f:
+        #     db.cursor().executescript(f.read())
+        # with app.open_resource('../sql_queries/create_download_chunk_table.sql', mode='r') as f:
+        #     db.cursor().executescript(f.read())
 
     @DAO_Core.commit
     def store_downloading_info(self, **kwargs):
