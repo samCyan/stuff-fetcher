@@ -5,16 +5,15 @@ import constants
 
 app = Flask(__name__)
 
-if not os.path.isdir('logs'):
-    os.mkdir('logs')
+if not os.path.isdir('{}/logs'.format(constants.ROOT)):
+    os.mkdir('{}/logs'.format(constants.ROOT))
 
-if not os.path.isdir('data_store'):
-    os.mkdir('data_store')
+if not os.path.isdir('{}/data_store'.format(constants.ROOT)):
+    os.mkdir('{}/data_store'.format(constants.ROOT))
 
-if not os.path.isdir('downloads'):
-    os.mkdir('downloads')
+if not os.path.isdir('{}/downloads'.format(constants.ROOT)):
+    os.mkdir('{}/downloads'.format(constants.ROOT))
 
-CWD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 db = sqlite3.connect(constants.downloads_database_loc, check_same_thread = False)
 with app.open_resource('../sql_queries/create_download_table.sql', mode='r') as f:

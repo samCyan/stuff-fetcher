@@ -1,13 +1,15 @@
+from rq import Queue
+from rq.job import Job
+from worker import conn
+
 from os import environ
-from uuid import uuid4
 
 from flask import jsonify, request
 
-import constants
-from core import app, download_helper
-from dao.downloading_dao import Downloading_DAO
-from services import show_downloads_service, store_downloading_info_service, show_downloaded_chunks_service, download_file
+from core import app
+from services import show_downloads_service, show_downloaded_chunks_service, download_file
 
+q = Queue(connection=conn)
 
 @app.route('/')
 def hello():
@@ -24,9 +26,20 @@ def show_downloaded_chunks():
 @app.route('/download')
 def download_route():
     url = request.args.get('url')
-    d_id = download_file(url)
-    return jsonify({'id':d_id})
+    job = q.enqueue_call(
+        func=download_file, args=(url,), result_ttl=5000)
+    print(job.get_id())
+    return jsonify({'id': job.get_id()})
 
+
+@app.route("/status/<job_key>", methods=['GET'])
+def get_status(job_key):
+    job = Job.fetch(job_key, connection=conn)
+
+    if job.is_finished:
+        return str(job.result), 200
+    else:
+        return "Nay!", 202
 
 if __name__ == '__main__':
     port = int(environ.get('PORT', 5000))

@@ -5,7 +5,7 @@ from core import download_helper
 d_dao = Downloading_DAO()
 
 def download_file(url):
-    return download_helper.download(url)
+    return download_helper.Downloader().download(url)
 
 def show_downloads_service():
     return d_dao.all_downloads()

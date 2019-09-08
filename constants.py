@@ -1,14 +1,19 @@
+import os
+
 DOWNLOADS = 'downloads'
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # db list
 downloads_database = 'downloads_database'
 
 # db loc list
-downloads_database_loc = './data_store/downloads_database.db'
+downloads_database_loc = os.path.join(ROOT, 'data_store', 'downloads_database.db')
 
 # tables list
 downloads = 'DOWNLOADS'
 download_chunks = 'DOWNLOAD_CHUNKS'
+
 
 # Column names
 class DOWNLOADS_COLUMNS:
